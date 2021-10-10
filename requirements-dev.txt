@@ -2,7 +2,6 @@ pytest-cov
 mypy
 flake8-isort
 pep8-naming
-pre-commit
 flake8-black
 
 
