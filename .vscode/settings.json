@@ -1,0 +1,14 @@
+{
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+      "--max-line-length=120",
+      "exclude=.git,migrations,.venv"
+    ],
+    "editor.formatOnSave": true,
+    "python.formatting.provider": "black",
+    "python.linting.mypyEnabled": true,
+    "python.testing.pytestEnabled": true,
+    "python.testing.pytestArgs": [
+      "."
+    ]
+  }
