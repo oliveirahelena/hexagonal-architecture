@@ -4,5 +4,4 @@ flake8-isort
 pep8-naming
 flake8-black
 
-
 -r requirements.txt
