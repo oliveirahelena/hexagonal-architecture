@@ -1,7 +1,15 @@
+from __future__ import annotations
+
 from typing import Optional, Tuple
 
-from application.domain import Product
+from application.domain import NewProduct, Product
 from application.repository import ProductPersistenceInterface
+
+
+class NewProductService:
+    @staticmethod
+    def get_service(persistence: ProductPersistenceInterface) -> ProductService:
+        return ProductService(persistence)
 
 
 class ProductService:
@@ -17,12 +25,31 @@ class ProductService:
     def create(
         self, name: str, price: float
     ) -> Tuple[Optional[Product], Optional[Exception]]:
-        pass
+        product = NewProduct.get_product(name, price)
+        _, error = product.is_valid()
+        if error is not None:
+            return None, error
+        result, error = self.persistence.save(product)
+        if error is not None:
+            return None, error
+        return result, None
 
     def enable(self, product: Product) -> Tuple[Optional[Product], Optional[Exception]]:
-        pass
+        error = product.enable()
+        if error is not None:
+            return None, error
+        result, error = self.persistence.save(product)
+        if error is not None:
+            return None, error
+        return result, None
 
     def disable(
         self, product: Product
     ) -> Tuple[Optional[Product], Optional[Exception]]:
-        pass
+        error = product.disable()
+        if error is not None:
+            return None, error
+        result, error = self.persistence.save(product)
+        if error is not None:
+            return None, error
+        return result, None
